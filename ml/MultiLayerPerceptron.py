@@ -1,3 +1,4 @@
+#coding='utf-8'
 from sklearn.neural_network import MLPClassifier
 
 class MultiLayerPerceptron:

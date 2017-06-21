@@ -9,7 +9,7 @@ class MGTensorFlow:
         b = tf.Variable(tf.zeros([1, out_size]) + 0.1)#biaes
         wx_plus_b = tf.matmul(inputs, w) + b #linear regression
         if activation_function is None:  #ex: relu  relu6  softmax  sigmod
-           outputs = wx_plus_b
+            outputs = wx_plus_b
         else:
-           outputs = activation_function(wx_plus_b)
+            outputs = activation_function(wx_plus_b)
         return outputs

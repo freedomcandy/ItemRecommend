@@ -1,4 +1,4 @@
-#coding='utf-8'
+# -*- coding: utf-8 -*-
 from sklearn.neural_network import MLPClassifier
 
 class MultiLayerPerceptron:
@@ -7,7 +7,7 @@ class MultiLayerPerceptron:
     def processMLPClassifier(self,features,labels,predictFeatures):
         thirdCategoryId = []
         mlp = MLPClassifier()
-        for i in range(4):
+        for _ in range(4):
             mlp.fit(features, labels)
             y_predict = mlp.predict(predictFeatures)
             

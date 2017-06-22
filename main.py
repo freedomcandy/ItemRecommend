@@ -29,7 +29,7 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
 if __name__ == "__main__":
 #     application = tornado.web.Application(autoreload=True)
     application = tornado.web.Application([
-        (r'/', ItemRecommendRegressionHandler)
+        (r'/itemRec', ItemRecommendRegressionHandler)
         ], autoreload=True)
     application.listen(8888)
     tornado.ioloop.IOLoop.current().start()

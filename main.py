@@ -12,7 +12,7 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
         if len(features_data) < 1:# no features  no process
             self.write('No data')
             return
-        test_labels = labels_data[len(labels_data) - 1]
+        test_labels = labels_data[len(labels_data) - 1]#get the last one to predict next tap features
         third_category_id = mlp.MultiLayerPerceptron().processMLPClassifier(features_data, labels_data, test_labels)
         obj = {'categoryIds':third_category_id}
         self.write(json.dumps(obj))

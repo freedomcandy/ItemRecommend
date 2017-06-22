@@ -13,7 +13,7 @@ class MultiLayerPerceptron:
        
         features = np.array(x_data) 
 #         thirdCategoryId = []
-        mlp = MLPClassifier()
+        mlp = MLPClassifier(hidden_layer_sizes=(30,20,10))
         mlp.fit(features, labels)
         y_predict = mlp.predict(predictFeatures)
         print(y_predict.tolist())

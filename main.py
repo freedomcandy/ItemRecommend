@@ -9,8 +9,7 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
         if len(features_data) < 1:
             self.write('No data')
             return
-        
-        self.write('Request OK')
+       
         
 
     def get(self):

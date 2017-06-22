@@ -16,6 +16,6 @@ class MultiLayerPerceptron:
         mlp = MLPClassifier()
         mlp.fit(features, labels)
         y_predict = mlp.predict(predictFeatures)
-        y_predict.tolist()
+        print(y_predict.tolist())
         return y_predict.tolist()
         

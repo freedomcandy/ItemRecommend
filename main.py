@@ -1,6 +1,5 @@
 import tornado.ioloop
 import tornado.web
-from twisted.web.test.test_tap import application
 
 
 class ItemRecommendRegressionHandler(tornado.web.RequestHandler):

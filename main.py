@@ -52,7 +52,7 @@ if __name__ == "__main__":
 #     application = tornado.web.Application([
 #         (r'/itemRec', ItemRecommendRegressionHandler)
     application = tornado.web.Application([
-        (r'/itemRec', ItemRecommendHandle),
+        (r'/itemRec', ItemRecommendRegressionHandler),
         (r'/itemRecSVC', ItemRecommendSVCHandle)
         ], autoreload=True)
     application.listen(8888)

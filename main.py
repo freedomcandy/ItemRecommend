@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import ml.multi_percept as mlp
+import ml.support_vector_classifier as svmc
 import json
 
 class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
@@ -26,22 +27,36 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
     def get(self):
         self.write('get OK')
     
+
+#use svm's SVC to predict category_id
 class ItemRecommendSVCHandle(tornado.web.RequestHandler):
     def get(self):
         self.write('SVC GET OK')
         
     def post(self):
         feature_train = eval( self.get_argument('tapID', '[]' ))
-        label_train = int(self.get_argument('tapedID', '[]' ))
-        print(feature_train)
-        
+        label_train = eval(self.get_argument('tapedID', '[]' ))
+        print(self.get_argument('tapID', '[]' ))
+        print(self.get_argument('tapedID', '[]' ))
+        if len(feature_train) < 1:
+            self.write('NO TRAINING DATA')
+            return
+        feature_test = label_train[len(label_train)-1]
+        predict_data = svmc.SupportVectorClassifier().processSVMClassifier(feature_train, label_train, feature_test)
+        result_data = {'categoryIds':predict_data}
+        self.write(json.dump(result_data))
+
+
 
 if __name__ == "__main__":
 #     application = tornado.web.Application(autoreload=True)
+
+#     application = tornado.web.Application([
+#         (r'/itemRec', ItemRecommendRegressionHandler)
     application = tornado.web.Application([
-        (r'/itemRec', ItemRecommendRegressionHandler)
+        (r'/itemRec', ItemRecommendSVCHandle)
         ], autoreload=True)
-    application.listen(8888)
+    application.listen(9010)
     tornado.ioloop.IOLoop.current().start()
 #     server = tornado.httpserver.HTTPServer(application)
 #     server.listen(8888)

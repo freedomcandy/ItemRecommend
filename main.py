@@ -4,7 +4,14 @@ import tornado.web
 
 class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
     def post(self):
+        features_data = self.get_argument('tapID',[])
+        labels_data = self.get_argument('tapedID',[])
+        if len(features_data) < 1:
+            self.write('No data')
+            return
+        
         self.write('Request OK')
+        
 
     def get(self):
         self.write('get OK')

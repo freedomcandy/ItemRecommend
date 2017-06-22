@@ -1,19 +1,21 @@
 import tornado.ioloop
 import tornado.web
-
+import ml.multi_percept as mlp
 
 class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
     def post(self):
-        features_data = self.get_argument('tapID', [])
-        labels_data = self.get_argument('tapedID', [])
-        item_ids = self.get_argument('itemIDs', [])
+        features_data = eval(self.get_argument('tapID', '[]'))
+        labels_data = eval(self.get_argument('tapedID', '[]'))
+        item_ids = eval(self.get_argument('itemIDs', '[]'))
         #process category predict
         if len(features_data) < 1:# no features  no process
             self.write('No data')
+            print('No data')
             return
+        print('features')
         test_labels = labels_data[len(labels_data) - 1]
-        
-        
+        third_category_id = mlp.MultiLayerPerceptron().processMLPClassifier(features_data, labels_data, test_labels)
+        self.write(third_category_id)
         #process itemId clutser
         if len(item_ids) < 1:
             print('1111')

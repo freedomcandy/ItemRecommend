@@ -4,7 +4,7 @@ from tornado import httpclient, ioloop
 def http_test():
     test_client = httpclient.HTTPClient()
     try:
-        response = test_client.fetch('http://127.0.0.1:8888/itemRec',
+        response = test_client.fetch('http://172.16.12.50:8888/itemRec',
                                      method = 'POST',
                                      body = urllib.parse.urlencode(\
                                                 {'tapID': [1,2,3,4,5],

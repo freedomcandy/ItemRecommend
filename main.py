@@ -31,7 +31,15 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
     def get(self):
         self.write('get OK')
     
-
+class ItemRecommendSVCHandle(tornado.web.RequestHandler):
+    def get(self):
+        self.write('SVC GET OK')
+        
+    def post(self):
+        feature_train = eval( self.get_argument('tapID', '[]' ))
+        label_train = int(self.get_argument('tapedID', '[]' ))
+        print(feature_train)
+        
 
 if __name__ == "__main__":
 #     application = tornado.web.Application(autoreload=True)

@@ -11,15 +11,10 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
         #process category predict
         if len(features_data) < 1:# no features  no process
             self.write('No data')
-            print('No data')
             return
-        print('features')
-        test_labels = labels_data[len(labels_data) - 1]
+        test_labels = labels_data[len(labels_data) - 1]#get the last one to predict next tap features
         third_category_id = mlp.MultiLayerPerceptron().processMLPClassifier(features_data, labels_data, test_labels)
-        print(third_category_id)
-        print(type(third_category_id))
         obj = {'categoryIds':third_category_id}
-        print(json.dumps(obj))
         self.write(json.dumps(obj))
         #process itemId clutser
         if len(item_ids) < 1:

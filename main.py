@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import ml.multi_percept as mlp
+import json
 
 class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
     def post(self):
@@ -15,12 +16,16 @@ class ItemRecommendRegressionHandler(tornado.web.RequestHandler):
         print('features')
         test_labels = labels_data[len(labels_data) - 1]
         third_category_id = mlp.MultiLayerPerceptron().processMLPClassifier(features_data, labels_data, test_labels)
-        self.write(third_category_id)
+        print(third_category_id)
+        print(type(third_category_id))
+        obj = {'categoryIds':third_category_id}
+        print(json.dumps(obj))
+        self.write(json.dumps(obj))
         #process itemId clutser
         if len(item_ids) < 1:
             print('1111')
             
-        self.write('Request OK %s' % test_labels)
+#         self.write('Request OK %s' % test_labels)
         
 
     def get(self):

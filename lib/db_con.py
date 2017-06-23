@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from setting import sql_conf
+from lib.setting import sql_conf
 from tornado_mysql import pools
 
 pools.DEBUG = True

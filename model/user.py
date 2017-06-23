@@ -14,6 +14,7 @@ class User:
           WHERE a.user_id = %s and a.detail = b.id
           ORDER BY a.id DESC LIMIT 20;'''
         result = await Execute(_sql, (self.user_id, ))
-        self.last_ten_cat = result.reversed()
+        result.reverse()
+        self.last_ten_cat = result
         return self
             

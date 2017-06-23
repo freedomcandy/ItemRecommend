@@ -13,7 +13,7 @@ class User:
           FROM behavior_browse_item a, item b 
           WHERE a.user_id = %s and a.detail = b.id
           ORDER BY id DESC limit 20;'''
-        result = yield MySQL.execute(_sql, (self.user_id, ))
+        result = await MySQL.execute(_sql, (self.user_id, ))
         self.last_ten_cat = result
         return self
             

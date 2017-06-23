@@ -23,6 +23,9 @@ class LRUCache(dict):
             self.__cache.popitem(last = False)
         self.__cache[_key] = _value
         
+    def __contains__(self, *args, **kwargs):
+        return self.__cache.__contains__(*args, **kwargs)
+        
     def __delitem__(self, *args, **kwargs):
         return self.__cache.__delitem__(*args, **kwargs)
         

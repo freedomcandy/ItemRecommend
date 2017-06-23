@@ -7,11 +7,11 @@ class SupportVectorClassifier:
     def processSVMClassifier(self,features_train,labels_train,feature_test):
         
         feature_data = []
-        for id in features_train:
-            feature_data.append([id])
+        for data in features_train:
+            feature_data.append([data])
         
         features_train = np.array(feature_data) 
         clf = SVC()
         clf.fit(features_train,labels_train)
         predict = clf.predict(feature_test)
-        return predict
+        return predict.tolist()

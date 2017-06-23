@@ -3,3 +3,4 @@
 /.DS_Store
 /.settings
 *.py[co]
+/lib/setting_env.py

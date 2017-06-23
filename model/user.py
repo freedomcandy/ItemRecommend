@@ -9,11 +9,11 @@ class User:
         self.initCategory()
         
     async def initCategory(self):
-        _sql = '''SELECT a.detail, b.thirdcategory_id 
+        _sql = '''SELECT b.thirdcategory_id 
           FROM behavior_browse_item a, item b 
           WHERE a.user_id = %s and a.detail = b.id
-          ORDER BY id DESC limit 20;'''
+          ORDER BY a.id DESC LIMIT 20;'''
         result = await Execute(_sql, (self.user_id, ))
-        self.last_ten_cat = result
+        self.last_ten_cat = result.reversed()
         return self
             

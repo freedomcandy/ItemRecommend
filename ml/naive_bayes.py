@@ -5,9 +5,13 @@ class NaiveBayes:
     #implements the naive Bayes algorithm for multinomially distributed data,
     # and is one of the two classic naive Bayes variants used in text classification
     def processDataWithGaussianNB(self,features_train,labels_train,feature_test):
-        features_train = np.array(features_train)
+        
+        feature_data = []
+        for data in features_train:
+            feature_data.append([data])
+        
         gnb = GaussianNB()
         #train data by using NaiveBayes
-        gnb.fit(features_train, labels_train) 
+        gnb.fit(feature_data, labels_train) 
         predict = gnb.predict(feature_test)
-        return predict
+        return predict.tolist()

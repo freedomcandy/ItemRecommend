@@ -5,5 +5,6 @@ sql_conf = {
     'port': 3306,
     'user': 'root',
     'passwd': 'abcd.1234',
-    'db': 'lifemg'
+    'db': 'lifemg',
+    'charset': 'utf8'
     }

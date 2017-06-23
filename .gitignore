@@ -1,4 +1,5 @@
 /.pydevproject
 /.project
 /.DS_Store
+/.settings
 *.py[co]

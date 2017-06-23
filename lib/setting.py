@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 sql_conf = {
     'host': '127.0.0.1',
     'port': 3306,
@@ -8,3 +7,8 @@ sql_conf = {
     'db': 'lifemg',
     'charset': 'utf8'
     }
+
+try:
+    from lib.setting_env import *
+except ImportError:
+    pass

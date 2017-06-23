@@ -41,7 +41,7 @@ class ItemRecommendSVCHandle(tornado.web.RequestHandler):
         feature_test = label_train[len(label_train)-1]
         predict_data = svmc.SupportVectorClassifier().processSVMClassifier(feature_train, label_train, feature_test)
         result_data = {'categoryIds':predict_data}
-#         self.write(json.dump(result_data))
+        self.write(json.dump(result_data))
 
     def get(self):
         self.write('SVC GET OK')

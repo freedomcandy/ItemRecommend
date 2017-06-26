@@ -3,6 +3,22 @@ import pandas
 from collections import defaultdict
 from lib.db_con import Execute
 
+class DataClean(object):
+    @staticmethod
+    def deaultInt(base_value):
+        if not base_value:
+            return 0
+        str_value = str(base_value)
+        if (not str_value.isdigit()) or (str_value.upper() in ('NULL', 'NONE', )):
+            return 0
+        return int(base_value)
+    
+    @staticmethod
+    def deaultOther(base_value):
+        if (not base_value) or (str(base_value).upper() in ('NULL', 'NONE', )):
+            return '其他'
+        return str(base_value)
+
 class Item(object):
     def __init__(self, init_obj):
         if isinstance(init_obj, dict):
@@ -13,20 +29,12 @@ class Item(object):
         elif isinstance(init_obj, list) or isinstance(init_obj, tuple):
             tp_second, tp_third, tp_brand, tp_series = init_obj
             second, third, brand, series =  \
-                self.__dataClean(tp_second),\
-                self.__dataClean(tp_third), \
-                self.__dataClean(tp_brand), \
-                self.__dataClean(tp_series)
+                DataClean.deaultInt(tp_second),\
+                DataClean.deaultInt(tp_third), \
+                DataClean.deaultOther(tp_brand), \
+                DataClean.deaultInt(tp_series)
         self.second, self.third, self.brand, self.series \
             = second, third, brand, series
-            
-    def __dataClean(self, dirty_value):
-        dirty_value = str(dirty_value)
-        if dirty_value.isdigit():
-            return int(dirty_value)
-        if dirty_value.upper() in ('NULL', 'NONE'):
-            return 0
-        return dirty_value
             
     def __initFromDict(self, init_dict, init_key):
         '''对传入的字典可能出现的异常进行统一处理'''
@@ -83,7 +91,11 @@ class User:
         result = await Execute(_sql, (item_obj.second, ))
         pandas_dict = defaultdict(list)
         for data_tuple in result:
-            for key_name, item_value in zip(['third', 'brand', 'series'], list(data_tuple)):
-                pandas_dict[key_name].append(item_value)
+            for (key_name, Tran_Func), item_value in \
+                                        zip([('third', DataClean.deaultInt), 
+                                             ('brand', DataClean.deaultOther), 
+                                             ('series', DataClean.deaultInt)], \
+                                            list(data_tuple)):
+                pandas_dict[key_name].append(Tran_Func(item_value))
         return pandas.DataFrame.from_dict(pandas_dict)
             

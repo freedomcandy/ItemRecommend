@@ -37,7 +37,7 @@ class MultiLayerPerceptron:
         
         
         joblib.dump(mlp,modelName)
-        return y_predict.tolist()
+        return y_predict.tolist()[0]
            
         
         

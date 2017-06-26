@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from queue import Queue
+import pandas
+from collections import defaultdict
 from lib.db_con import Execute
 
 class Item(object):
@@ -8,7 +9,7 @@ class Item(object):
             third = self.__initFromDict(init_obj, 'third')
             brand = self.__initFromDict(init_obj, 'brand')
             series = self.__initFromDict(init_obj, 'series')
-        elif isinstance(init_obj, list):
+        elif isinstance(init_obj, list) or isinstance(init_obj, tuple):
             tp_third, tp_brand, tp_series = init_obj
             third, brand, series = self.__dataClean(tp_third), \
                                    self.__dataClean(tp_brand), \
@@ -29,14 +30,16 @@ class Item(object):
             return
         init_value = init_dict.get(init_key, 0)
         return self.__dataClean(init_value)
-
+    
+    def dump(self):
+        return self.__dict__
 
 class User:
     QUEUE_SIZE = 20
     def __init__(self, user_id):
         '''最后10次三级目录浏览'''
         self.user_id = user_id
-        self.last_cat = Queue(self.QUEUE_SIZE)
+        self.last_view = []
         
     async def initCategory(self, total_amount = None):
         total_amount = self.QUEUE_SIZE if total_amount is None else total_amount
@@ -47,10 +50,18 @@ class User:
         result = await Execute(_sql, (self.user_id, total_amount))
         result.reverse()
         for item_data in result:
-            self.last_cat.put(Item(item_data))
+            self.last_view.append(Item(item_data))
         return self
     
     def updateClick(self, item_info):
-        self.last_cat.put(Item(item_info))
-
+        if len(self.last_view) >= self.QUEUE_SIZE:
+            self.last_view.pop(0)
+        self.last_view.append(Item(item_info))
+        
+    def mlModelsAll(self):
+        pandas_dict = defaultdict(list)
+        for item_obj in self.last_view:
+            for head_name, row_value in item_obj.dump().items():
+                pandas_dict[head_name].append(row_value)
+        return pandas.DataFrame.from_dict(pandas_dict)
             

@@ -11,7 +11,9 @@ async def test_main(user_id):
     '''这个函数展示了如何获取对应user_id的最后20次输出，
     并调用了机器学习算法'''
     user_obj = await User(user_id).initCategory()
-    return myMLFunc(user_obj.last_cat)
+    df_obj = user_obj.mlModelsAll()
+    print(df_obj)
+    return myMLFunc(user_obj.last_view)
 
 if __name__ == '__main__':
     '''通过异步的方法执行逻辑'''

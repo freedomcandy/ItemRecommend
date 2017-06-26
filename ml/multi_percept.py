@@ -2,8 +2,10 @@
 from sklearn.neural_network import MLPClassifier
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.externals import joblib
+from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import os
+from scipy import cluster
 
 SAVE_MODEL_PATH = './save_model'
 
@@ -48,21 +50,33 @@ class MultiLayerPerceptron:
     
     
     def getTargetItemCluster(self,features):
-        print(features)
-#         ac = AgglomerativeClustering(n_clusters= 3)
-#         y_predict = ac.fit_predict(featrue)
-#         itemCluster = y_predict[0]
-#         cluster_index = []
-#         index = 0
-#         for i in y_predict:
-#             if i == itemCluster:
-#                 cluster_index.append(index)
-#             index+=1  
-# #         print(itemCluster)
-# #         print(y_predict)
-# #         print(cluster_index)
-#         return cluster_index
-        return 'hq'
+#         print("=======",features)
+#         print(type(features))
+        select_feature = ["brand","series","third"]
+        train_data = features[select_feature]
+#         print(type(train_data))
+#         print(train_data)
+        #check data is  Null,Nan,"",etc
+        train_data["brand"] = train_data["brand"].fillna("其他")
+        #LabelEncode
+        le = LabelEncoder()
+        train_data["brand"] = le.fit_transform(train_data["brand"])
+        #start Cluster 
+        ac = AgglomerativeClustering(n_clusters= 3)
+        y_predict = ac.fit_predict(train_data)
+        itemCluster = y_predict[0]
+        cluster_index = []
+        index = 0
+        for i in y_predict:
+            if i == itemCluster:
+                cluster_index.append(index)
+            index+=1  
+#         print(itemCluster)
+#         print(y_predict)
+#         print(cluster_index)
+        print("=======",cluster_index)
+        return cluster_index
+        
         
 
 if __name__ == '__main__':

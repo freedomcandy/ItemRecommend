@@ -47,21 +47,22 @@ class MultiLayerPerceptron:
     
     
     
-    def getTargetItemCluster(self,features=None):
-        ac = AgglomerativeClustering(n_clusters= 3)
-        featrue = [[1,2],[1,3],[1,1],[2,1],[2,0],[2,2],[3,3],[2,1],[3,2],[3,1],[1,5]]
-        y_predict = ac.fit_predict(featrue)
-        itemCluster = y_predict[0]
-        cluster_index = []
-        index = 0
-        for i in y_predict:
-            if i == itemCluster:
-                cluster_index.append(index)
-            index+=1  
-#         print(itemCluster)
-#         print(y_predict)
-#         print(cluster_index)
-        return cluster_index
+    def getTargetItemCluster(self,features):
+        print(features)
+#         ac = AgglomerativeClustering(n_clusters= 3)
+#         y_predict = ac.fit_predict(featrue)
+#         itemCluster = y_predict[0]
+#         cluster_index = []
+#         index = 0
+#         for i in y_predict:
+#             if i == itemCluster:
+#                 cluster_index.append(index)
+#             index+=1  
+# #         print(itemCluster)
+# #         print(y_predict)
+# #         print(cluster_index)
+#         return cluster_index
+        return 'hq'
         
 
 if __name__ == '__main__':

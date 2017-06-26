@@ -11,7 +11,7 @@ class mainService(object):
         user_id = int(user_id)
         if not user_id in self.user_cahce:
             self.user_cahce[user_id] = User(user_id)
-        return self.user_cahce[user_id]
+        return self.user_cahce.get(user_id, None)
     
 try:
     Service

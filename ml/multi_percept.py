@@ -7,18 +7,20 @@ import numpy as np
 import os
 from scipy import cluster
 
-SAVE_MODEL_PATH = './save_model'
+SAVE_MODEL_PATH = '../save_model'
 
 class MultiLayerPerceptron:
     # define and use Multi-Layer Perceptron to predict the user next tap third-categoryId(serisId) 
     # that return backend maybe two more predicted ID list
-    def processMLPClassifier(self, user_id, features, labels, predictFeatures):
+    def processMLPClassifier(self, user_id, datas):
         #wish data
-        x_data = []
-        for i in features:
-            tempX = [i]
-            x_data.append(tempX)
-        features = np.array(x_data)
+        select_feature = ['feature']
+        features = datas[select_feature]
+        print("------",features)
+        labels = datas['label']
+        print("======",labels)
+        predictFeatures = labels[len(labels)-1]
+        print("+++++",predictFeatures)
         
         #check train model
         os.chdir(SAVE_MODEL_PATH)
@@ -39,7 +41,9 @@ class MultiLayerPerceptron:
         
         
         joblib.dump(mlp,modelName)
-        return y_predict.tolist()[0]
+        y = y_predict.tolist()[0]
+        print('111-----',y)
+        return y
            
         
         

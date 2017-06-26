@@ -14,9 +14,10 @@ async def test_main(user_id):
     user_obj = await User(user_id).initCategory()
     second_info = await user_obj.mlSecondCategory()
     df_obj = user_obj.mlThirdCategory()
-    print(second_info)
+    print(df_obj)
 #     return myMLFunc(user_obj.last_view)
-    return mlp.MultiLayerPerceptron().getTargetItemCluster(second_info)
+#     return mlp.MultiLayerPerceptron().getTargetItemCluster(second_info)
+    return mlp.MultiLayerPerceptron().processMLPClassifier(user_obj.user_id, df_obj)
 
 
 if __name__ == '__main__':

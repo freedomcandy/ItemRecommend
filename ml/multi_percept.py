@@ -47,9 +47,10 @@ class MultiLayerPerceptron:
     
     
     
-    def getTargetItemCluster(self,features=None):
+    def getTargetItemCluster(self,features):
+        print(features)
+        break
         ac = AgglomerativeClustering(n_clusters= 3)
-        featrue = [[1,2],[1,3],[1,1],[2,1],[2,0],[2,2],[3,3],[2,1],[3,2],[3,1],[1,5]]
         y_predict = ac.fit_predict(featrue)
         itemCluster = y_predict[0]
         cluster_index = []

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from model.user import User
+import ml.multi_percept as mlp
 
 def myMLFunc(this_in_put):
     '''这是极其学习的算法'''
@@ -13,7 +14,9 @@ async def test_main(user_id):
     user_obj = await User(user_id).initCategory()
     df_obj = user_obj.mlModelsAll()
     print(df_obj)
-    return myMLFunc(user_obj.last_view)
+#     return myMLFunc(user_obj.last_view)
+    return mlp.MultiLayerPerceptron().getTargetItemCluster(df_obj)
+ 
 
 if __name__ == '__main__':
     '''通过异步的方法执行逻辑'''

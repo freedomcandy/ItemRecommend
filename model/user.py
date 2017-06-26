@@ -82,8 +82,8 @@ class User:
                  WHERE subcategory_id = %s;'''
         result = await Execute(_sql, (item_obj.second, ))
         pandas_dict = defaultdict(list)
-        for data_tupel in result:
-            for key_name, item_value in zip(['third, brand, series'], data_tupel):
+        for data_tuple in result:
+            for key_name, item_value in zip(['third', 'brand', 'series'], list(data_tuple)):
                 pandas_dict[key_name].append(item_value)
         return pandas.DataFrame.from_dict(pandas_dict)
             

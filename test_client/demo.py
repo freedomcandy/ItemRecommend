@@ -14,7 +14,7 @@ async def test_main(user_id):
     user_obj = await User(user_id).initCategory()
     second_info = await user_obj.mlSecondCategory()
     df_obj = user_obj.mlThirdCategory()
-    return myMLFunc(user_obj.last_view)
+    print(second_info)
 #     return myMLFunc(user_obj.last_view)
     return mlp.MultiLayerPerceptron().getTargetItemCluster(df_obj)
 
@@ -22,4 +22,4 @@ async def test_main(user_id):
 if __name__ == '__main__':
     '''通过异步的方法执行逻辑'''
     from tornado import ioloop
-    ioloop.IOLoop.current().run_sync(lambda: test_main(673))
+    ioloop.IOLoop.current().run_sync(lambda: test_main(529))

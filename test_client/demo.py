@@ -11,8 +11,10 @@ async def test_main(user_id):
     '''这个函数展示了如何获取对应user_id的最后20次输出，
     并调用了机器学习算法'''
     user_obj = await User(user_id).initCategory()
-    df_obj = user_obj.mlModelsAll()
+    second_info = await user_obj.mlSecondCategory()
+    df_obj = user_obj.mlThirdCategory()
     print(df_obj)
+    print(second_info)
     return myMLFunc(user_obj.last_view)
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@
 from model.user import User
 import ml.multi_percept as mlp
 import ml.support_vector_classifier as svc
+import ml.naive_bayes as nb
 
 def myMLFunc(this_in_put):
     '''这是极其学习的算法'''
@@ -20,6 +21,7 @@ async def test_main(user_id):
 #     return mlp.MultiLayerPerceptron().getTargetItemCluster(second_info)
 #     return mlp.MultiLayerPerceptron().processMLPClassifier(user_obj.user_id, df_obj)
     return svc.SupportVectorClassifier().processSVMClassifier(df_obj)
+    return nb.NaiveBayes().processDataWithGaussianNB(df_obj)
 
 
 if __name__ == '__main__':

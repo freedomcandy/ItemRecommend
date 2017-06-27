@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from model.user import User
 import ml.multi_percept as mlp
+import ml.support_vector_classifier as svc
 
 def myMLFunc(this_in_put):
     '''这是极其学习的算法'''
@@ -16,8 +17,9 @@ async def test_main(user_id):
     df_obj = user_obj.mlThirdCategory()
     print(df_obj)
 #     return myMLFunc(user_obj.last_view)
-    return mlp.MultiLayerPerceptron().getTargetItemCluster(second_info)
+#     return mlp.MultiLayerPerceptron().getTargetItemCluster(second_info)
 #     return mlp.MultiLayerPerceptron().processMLPClassifier(user_obj.user_id, df_obj)
+    return svc.SupportVectorClassifier().processSVMClassifier(df_obj)
 
 
 if __name__ == '__main__':

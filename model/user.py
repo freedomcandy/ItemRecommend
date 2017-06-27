@@ -50,11 +50,13 @@ class User:
     QUEUE_SIZE = 20
     def __init__(self, user_id):
         '''最后10次三级目录浏览'''
-        self.user_id = user_id
+        self.user_id = int(user_id)
         self.last_view = []
         self.init_cat_flag = False
         
     async def initCategory(self, total_amount = None):
+        if self.init_cat_flag is True:
+            return self
         total_amount = self.QUEUE_SIZE if total_amount is None else total_amount
         _sql = \
         '''SELECT b.subcategory_id, b.thirdcategory_id, b.brand_name, b.series_id
@@ -65,6 +67,7 @@ class User:
         result.reverse()
         for item_data in result:
             self.last_view.append(Item(item_data))
+        self.init_cat_flag = True
         return self
     
     async def updateClick(self, item_info):
@@ -86,17 +89,20 @@ class User:
         return pandas.DataFrame.from_dict(pandas_dict)
     
     async def mlSecondCategory(self):
+        if not self.last_view:
+            return pandas.DataFrame()
         item_obj = self.last_view[-1]
         if not item_obj:
             return pandas.DataFrame()
-        _sql = '''SELECT thirdcategory_id, brand_name, series_id
+        _sql = '''SELECT id, thirdcategory_id, brand_name, series_id
                  FROM item
                  WHERE subcategory_id = %s;'''
         result = await Execute(_sql, (item_obj.second, ))
         pandas_dict = defaultdict(list)
         for data_tuple in result:
             for (key_name, Tran_Func), item_value in \
-                                        zip([('third', DataClean.deaultInt), 
+                                        zip([('id', DataClean.deaultInt),
+                                             ('third', DataClean.deaultInt), 
                                              ('brand', DataClean.deaultOther), 
                                              ('series', DataClean.deaultInt)], \
                                             list(data_tuple)):

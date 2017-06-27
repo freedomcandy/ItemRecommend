@@ -14,9 +14,9 @@ class SupportVectorClassifier:
         #handle data 
         select_feature = ['feature']
         features = datas[select_feature]
-        print("------",features)
+#         print("------",features)
         labels = datas['label']
-        print("======",labels)
+#         print("======",labels)
         predictFeatures = labels[len(labels)-1]
         print("+++++",predictFeatures)
         

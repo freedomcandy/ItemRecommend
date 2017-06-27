@@ -1,17 +1,29 @@
 # -*- coding: utf-8 -*-
 from sklearn.naive_bayes import GaussianNB
-import numpy as np
+# from sklearn.externals import joblib
+# import os
+
 class NaiveBayes:
     #implements the naive Bayes algorithm for multinomially distributed data,
     # and is one of the two classic naive Bayes variants used in text classification
-    def processDataWithGaussianNB(self,features_train,labels_train,feature_test):
+    def processDataWithGaussianNB(self,datas):
         
-        feature_data = []
-        for data in features_train:
-            feature_data.append([data])
+        #handle data 
+        select_feature = ['feature']
+        features = datas[select_feature]
+#         print("------",features)
+        labels = datas['label']
+#         print("======",labels)
+        predictFeatures = labels[len(labels)-1]
+#         print("+++++",predictFeatures)
         
-        gnb = GaussianNB()
-        #train data by using NaiveBayes
-        gnb.fit(feature_data, labels_train) 
-        predict = gnb.predict(feature_test)
-        return predict.tolist()
+        #calculator with GaussianNB
+        clf = GaussianNB()
+        clf.fit(features, labels)
+        y_predict = clf.predict(predictFeatures)
+        
+        #transform
+        y = y_predict.tolist()[0]
+        print('y_predict:',y)
+        return y
+        

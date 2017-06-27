@@ -52,6 +52,7 @@ class User:
         '''最后10次三级目录浏览'''
         self.user_id = user_id
         self.last_view = []
+        self.init_cat_flag = False
         
     async def initCategory(self, total_amount = None):
         total_amount = self.QUEUE_SIZE if total_amount is None else total_amount
@@ -66,10 +67,13 @@ class User:
             self.last_view.append(Item(item_data))
         return self
     
-    def updateClick(self, item_info):
-        if len(self.last_view) >= self.QUEUE_SIZE:
-            self.last_view.pop(0)
-        self.last_view.append(Item(item_info))
+    async def updateClick(self, item_info):
+        if self.init_cat_flag is True:
+            if len(self.last_view) >= self.QUEUE_SIZE:
+                self.last_view.pop(0)
+            self.last_view.append(Item(item_info))
+        else:
+            await self.initCategory()
         
     def mlThirdCategory(self):
         view_len, pandas_dict = len(self.last_view), defaultdict(list)

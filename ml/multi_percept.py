@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
 from sklearn.neural_network import MLPClassifier
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.externals import joblib
 from sklearn.preprocessing import LabelEncoder
-import numpy as np
-import os
-from scipy import cluster
 
 SAVE_MODEL_PATH = '../save_model'
 
@@ -31,9 +29,9 @@ class MultiLayerPerceptron:
         
         #process data with mlp
         if os.path.exists(modelName):
-           mlp = joblib.load(modelName)
-           mlp.fit(features, labels)
-           y_predict = mlp.predict(predictFeatures)
+            mlp = joblib.load(modelName)
+            mlp.fit(features, labels)
+            y_predict = mlp.predict(predictFeatures)
         else:
             mlp = MLPClassifier(hidden_layer_sizes=(30,20,10))
             mlp.fit(features, labels)
@@ -44,14 +42,6 @@ class MultiLayerPerceptron:
         y = y_predict.tolist()[0]
         print('111-----',y)
         return y
-           
-        
-        
-         
-#        
-       
-    
-    
     
     def getTargetItemCluster(self,features):
 #         print("=======",features)
@@ -70,19 +60,16 @@ class MultiLayerPerceptron:
         y_predict = ac.fit_predict(train_data)
         itemCluster = y_predict[0]
         cluster_index = []
-        index = 0
-        for i in y_predict:
-            if i == itemCluster:
-                cluster_index.append(index)
-            index+=1  
+        for index, i in enumerate(y_predict):
+            if i != itemCluster:
+                continue
+            cluster_index.append(index)
 #         print(itemCluster)
 #         print(y_predict)
 #         print(cluster_index)
         print("=======",cluster_index)
         return cluster_index
         
-        
-
 if __name__ == '__main__':
     MultiLayerPerceptron().getTargetItemCluster()
         

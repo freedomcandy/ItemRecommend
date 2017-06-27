@@ -66,7 +66,7 @@ class MultiLayerPerceptron:
         le = LabelEncoder()
         train_data["brand"] = le.fit_transform(train_data["brand"])
         #start Cluster 
-        ac = AgglomerativeClustering(n_clusters= 3)
+        ac = AgglomerativeClustering(n_clusters= 8)
         y_predict = ac.fit_predict(train_data)
         itemCluster = y_predict[0]
         cluster_index = []

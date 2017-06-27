@@ -9,7 +9,7 @@ SVM_SAVE_MODEL_PATH = '../svm_save_model'
 class SupportVectorClassifier:
     #use support vector machine's Support Vector Classifier to resolve classification question
     # to do handle data
-    def processSVMClassifier(self,user_id,datas):
+    def processSVMClassifier(self,datas):
         
         #handle data 
         select_feature = ['feature']

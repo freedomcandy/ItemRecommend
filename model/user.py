@@ -22,10 +22,10 @@ class DataClean(object):
 class Item(object):
     def __init__(self, init_obj):
         if isinstance(init_obj, dict):
-            second = self.__initFromDict(init_obj, 'second')
-            third = self.__initFromDict(init_obj, 'third')
-            brand = self.__initFromDict(init_obj, 'brand')
-            series = self.__initFromDict(init_obj, 'series')
+            second = DataClean.deaultInt(init_obj.get('second', None))
+            third = DataClean.deaultInt(init_obj.get('third', None))
+            brand = DataClean.deaultOther(init_obj.get('brand', None))
+            series = DataClean.deaultInt(init_obj.get('series', None))
         elif isinstance(init_obj, list) or isinstance(init_obj, tuple):
             tp_second, tp_third, tp_brand, tp_series = init_obj
             second, third, brand, series =  \
@@ -35,13 +35,6 @@ class Item(object):
                 DataClean.deaultInt(tp_series)
         self.second, self.third, self.brand, self.series \
             = second, third, brand, series
-            
-    def __initFromDict(self, init_dict, init_key):
-        '''对传入的字典可能出现的异常进行统一处理'''
-        if init_key is None:
-            return
-        init_value = init_dict.get(init_key, 0)
-        return self.__dataClean(init_value)
     
     def dump(self):
         return self.__dict__

@@ -46,6 +46,9 @@ class User:
         self.user_id = int(user_id)
         self.last_view = []
         self.init_cat_flag = False
+        '''用来记录上一次随机出的数据'''
+        self.recommend_his = []
+        self.need_refresh = True
         
     async def initCategory(self, total_amount = None):
         if self.init_cat_flag is True:
@@ -70,6 +73,11 @@ class User:
             self.last_view.append(Item(item_info))
         else:
             await self.initCategory()
+        self.need_refresh = True
+        
+    def setRecommend(self, recommend_list):
+        self.need_refresh = False
+        self.recommend_his = recommend_list
         
     def mlThirdCategory(self):
         view_len, pandas_dict = len(self.last_view), defaultdict(list)

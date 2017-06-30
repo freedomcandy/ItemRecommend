@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from lib.setting import sql_conf
+from lib import setting
 from tornado_mysql import pools
 
 pools.DEBUG = True
 
 '''实例化一个'''
-MySQL = pools.Pool(sql_conf)
+MySQL = pools.Pool(setting.SQL_CONF)
 
 async def Execute(*arg, **kwargs):
     results_set = await MySQL.execute(*arg, **kwargs)

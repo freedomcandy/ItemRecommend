@@ -16,7 +16,7 @@ class conversionTool(object):
     async def getItemFromThird(self, user_obj):
         user_obj = await user_obj.initCategory()
         df_obj = user_obj.mlThirdCategory()
-        if df_obj.empty():
+        if df_obj.empty:
             return []
         third_id = MLP.processMLPClassifier(user_obj.user_id, df_obj)
         item_ref = await self.converTCtoItem(third_id)
@@ -25,7 +25,7 @@ class conversionTool(object):
     async def getItemFromSecond(self, user_obj):
         user_obj = await user_obj.initCategory()
         second_info = await user_obj.mlSecondCategory()
-        if second_info.empty():
+        if second_info.empty:
             return []
         index_list = MLP.getTargetItemCluster(second_info)
         id_list = second_info.get('id')

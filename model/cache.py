@@ -8,6 +8,7 @@ class cacheData(object):
         self.user = LRUCache(200)
         
     def getUserByID(self, user_id):
+        user_id = int(user_id)
         if not user_id in self.user:
             self.user[user_id] = User(user_id)
         return self.user[user_id]
